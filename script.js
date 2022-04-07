@@ -3,7 +3,7 @@ const months = [31,28,31,30,31,30,31,31,30,31,30,31];
 function ageCalculate(){
     let today = new Date();
     let inputDate = new Date(document.getElementById("date-input").value);
-    let birthDay,birthMonth,birthYear;
+    let birthDate,birthMonth,birthYear;
 
     let birthDetails = {
         date:inputDate.getDate(),
@@ -26,6 +26,26 @@ function ageCalculate(){
                 ){
                     alert("Not Born Yet");
                     return;
+                }
+
+                birthYear = currentYear - birthDetails.year;
+
+                if(currentMonth >= birthDetails.month){
+                    birthMonth = currentMonth - birthDetails.month;
+                }else{
+                    birthYear--;
+                    birthMonth = 12 + currentMonth - birthDetails.month;
+                }
+                if(currentDate >= birthDetails.date){
+                    birthDate = currentDate - birthDetails.date;
+                }else{
+                    birthMonth--;
+                    let days = months[currentMonth - 2];
+                    birthDate = days + currentDate - birthDetails.date;
+                    if(birthMonth < 0){
+                        birthMonth = 11;
+                        birthYear--;
+                    }
                 }
 }
 
