@@ -2,18 +2,20 @@ const months = [31,28,31,30,31,30,31,31,30,31,30,31];
 
 function ageCalculate(){
     let today = new Date();
-    let inputDate = Date(document.getElementById("date-input").value);
+    let inputDate = new Date(document.getElementById("date-input").value);
     let birthDay,birthMonth,birthYear;
 
     let birthDetails = {
         date:inputDate.getDate(),
-        month:inputDate.getMonth() + 1,
+        month:inputDate.getMonth()+1,
         year:inputDate.getFullYear()
     }
 
     let currentDate = today.getDate();
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
+
+    leapChecker(currentYear);
 
     if(birthDetails.year > currentYear ||
         (birthDetails.month > currentMonth &&
@@ -25,4 +27,12 @@ function ageCalculate(){
                     alert("Not Born Yet");
                     return;
                 }
+}
+
+function leapChecker(year){
+    if(year % 4 == 0 || (year %  100 == 0 && year % 400 == 0)){
+        months[1] = 29;
+    }else{
+        months[1] = 28;
+    }
 }
